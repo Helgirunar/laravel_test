@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class RegisterController extends Controller
 {
@@ -13,13 +14,17 @@ class RegisterController extends Controller
 
     public function store()
     {
-        request()->validate([ //Laravel validation
-            var_dump(request->all())
-            'name' => 'required|max:255',
-            'username' => 'required|max:255|min:3',
-            'email' => 'required|email|max:255',
+
+
+        $attributes = request()->validate([ //Laravel validation
+            'name' => 'required|max:255|min:2',
+            'username' => 'required|max:255|min:3|unique:users,username', // Unique, checks the users table and the column username looks if the username already exists.
+            'email' => 'required|email|max:255|unique:users,email',
             'password' => ['required','max:25','min:7'],
-            'confirmpassword' => 'required'
         ]);
+
+        User::create($attributes);
+
+        return redirect('/');
     }
 }
