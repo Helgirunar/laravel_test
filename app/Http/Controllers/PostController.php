@@ -17,8 +17,10 @@ class PostController extends Controller
     }
 
     public function show(Post $post) {
+
+        //session()->flash('message', 'You opened the post: ' . $post->title);
         return view('posts.show',[
-            'post' => $post
+            'post' => $post,
         ]);
     }
 

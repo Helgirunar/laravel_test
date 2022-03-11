@@ -6,12 +6,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 
+<style>
+    html {
+        scroll-behavior: smooth;
+    }
+
+</style>
+
+
 <body style="font-family: Open Sans, sans-serif">
     <section class="px-6 py-8">
         <x-navbar />
 
         {{ $slot }}
-
-        <x-footer />
     </section>
+    <x-popup-bottom-right />
 </body>

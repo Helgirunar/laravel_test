@@ -5,11 +5,22 @@
         </a>
     </div>
 
-    <div class="mt-8 md:mt-0">
-        <a href="/" class="text-xs font-bold uppercase">Home Page</a>
-        <a href="/register" class="ml-2 text-xs font-bold uppercase">Register</a>
+    <div class="mt-8 md:mt-0 flex item-center">
+        @guest
+            <a href="/register" class="ml-4 mt-2 text-sm font-bold uppercase">Register</a>
+            <a href="/login" class="ml-4 mt-2 text-sm font-bold uppercase">Login</a>
+        @endguest
+        @auth
+            <a href="/account" class="ml-4 mt-2 text-sm font-bold uppercase">My Account</a>
+            <form method="post" action="/logout">
+                @csrf
 
-        <a href="#" class="bg-blue-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">
+                <button type="submit"><p class="ml-4 mt-2 text-sm ml-4 font-bold uppercase">Log Out</p></button>
+            </form>
+
+            @endauth
+
+        <a href="/#newsletter" class="bg-blue-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">
             Subscribe for Updates
         </a>
     </div>
