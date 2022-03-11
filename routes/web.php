@@ -5,6 +5,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\PostCommentController;
 use App\Http\Controllers\CommentCommentController;
+use App\Services\Newsletter;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,21 +23,14 @@ Route::get('/laravel', function () {
     return view('laravel');
 });
 
-Route::post('newsletter', function () {
+Route::post('newsletter', function (Newsletter $newsletter) {
     request()->validate(['email' => 'required|email']);
 
-    $mailchimp = new \MailchimpMarketing\ApiClient();
-
-    $mailchimp->setConfig([
-        'apiKey' => config('services.mailchimp.key'),
-        'server' => 'us14'
-    ]);
     try {
-        $response = $mailchimp->lists->addListMember('eaf8b52ea1', [
-            'email_address' => request('email'),
-            'status' => 'subscribed'
-        ]);
-    } catch(\Exception $e) {
+        $newsletter->subscribe(request('email'));
+
+
+    } catch(Exception $e) {
         return redirect('/')->with('error', 'This email could not be added to our newsletter list');
     }
 
