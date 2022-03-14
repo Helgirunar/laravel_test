@@ -18,13 +18,16 @@ class RegisterController extends Controller
 
         $attributes = request()->validate([ //Laravel validation
             'name' => 'required|max:255|min:2',
+            'thumbnail' => 'required|image',
             'username' => 'required|max:255|min:3|unique:users,username', // Unique, checks the users table and the column username looks if the username already exists.
             'email' => 'required|email|max:255|unique:users,email',
             'password' => ['required','max:25','min:7'],
         ]);
 
+        $attributes['thumbnail'] = request()->file('thumbnail')->store('profileImages');
 
         $user = User::create($attributes);
+
 
         auth()->login($user);
 

@@ -11,7 +11,18 @@
             <a href="/login" class="ml-4 mt-2 text-sm font-bold uppercase">Login</a>
         @endguest
         @auth
-            <a href="/account" class="ml-4 mt-2 text-sm font-bold uppercase">My Account</a>
+        <a href="/admin/dashboard">
+            <x-account.displayImage :height="60" :width="60"/>
+        </a>
+        <x-dropdown>
+            <x-slot name="trigger">
+                <div class="flex">
+                    <button class="ml-4 mt-2 text-sm ml-4 font-bold uppercase">{{ Auth()->user()->username }}</button>
+                </div>
+            </x-slot>
+            <x-dropdown-item href="/admin/dashboard"> Dashboard</x-dropdown-item>
+            <x-dropdown-item href="/admin/posts/create" :active="request()->is('admin/posts/create')"> New Post</x-dropdown-item>
+        </x-dropdown>
             <form method="post" action="/logout">
                 @csrf
 

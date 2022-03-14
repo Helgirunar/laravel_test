@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Validation\ValidationException;
 
+use App\Models\User;
+use App\Models\Post;
+
 class SessionsController extends Controller
 {
     public function destroy() {
@@ -13,6 +16,12 @@ class SessionsController extends Controller
     }
     public function create() {
         return view('sessions.create');
+    }
+
+    public function show() {
+        return view('account.dashboard', [
+            'posts' => Auth()->user()->posts
+        ]);
     }
 
     public function store()
